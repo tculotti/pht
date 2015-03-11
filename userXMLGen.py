@@ -1,17 +1,19 @@
 import sys
+import json
+from pprint import pprint
 
-def check_file(in_file):
+def gen_xml_file(jira_user_data, jama_user_data):
 
     summary = '<?xml version="1.0" encoding="UTF-8"?>' + '\n'
     summary += '<person-mappings xmlns="http://tasktop.com/xml/ns/sync/person-mapping-model">' + '\n\n'
     summary += '    <repository url="https://pht.jamacloud.com" mapping-ignore-case="false" default-person-id="jamasync"/>' + '\n'
     summary += '    <repository url="https://phtcorp.atlassian.net" mapping-ignore-case="false" default-person-id="jirasync"/>' + '\n\n'
-    with open(in_file, "r") as f:
-        for line in f:
-            user = line.replace('\n', '').split(',')
+
+    for j in jama_user_data:
+        if j.get('userName') in jira_user_data:
             summary += '    <person-mapping>' + '\n'
-            summary += '        <person id="%s" />' % user[1] + '\n'
-            summary += '        <person id="%s" />' % user[2] + '\n'
+            summary += '        <person id="%s" />' % j.get('id') + '\n'
+            summary += '        <person id="%s" />' % j.get('userName') + '\n'
             summary += '    </person-mapping>' + '\n'
 
     summary += '\n' + '</person-mappings>'
@@ -20,7 +22,17 @@ def check_file(in_file):
   
 if __name__ == "__main__":
 
-	in_file       = sys.argv[1]
-	check_file(in_file)
-
+    in_file_jama       = sys.argv[1]
+    in_file_jira       = sys.argv[2]
     
+    # Prepare Jira data
+    jira_user_data = [line.strip() for line in open(in_file_jira, 'r')]
+    #print jira_user_data
+    
+    #Pepare Jama data from json file
+    json_data=open(in_file_jama)
+    jama_data = json.load(json_data)
+    jama_user_data = jama_data["soap:Envelope"]["soap:Body"]["ns2:getUsersResponse"]["return"]    
+    json_data.close()
+
+    gen_xml_file(jira_user_data, jama_user_data)
