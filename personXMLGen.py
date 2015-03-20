@@ -2,8 +2,10 @@ import sys
 import json
 from pprint import pprint
 
+
 def gen_xml_file(jira_user_data, jama_user_data):
 
+    notinjira = ''
     summary = '<?xml version="1.0" encoding="UTF-8"?>' + '\n'
     summary += '<person-mappings xmlns="http://tasktop.com/xml/ns/sync/person-mapping-model">' + '\n\n'
     summary += '    <repository url="https://pht.jamacloud.com" mapping-ignore-case="false" default-person-id="jamasync"/>' + '\n'
@@ -15,9 +17,18 @@ def gen_xml_file(jira_user_data, jama_user_data):
             summary += '        <person id="%s" />' % j.get('id') + '\n'
             summary += '        <person id="%s" />' % j.get('userName') + '\n'
             summary += '    </person-mapping>' + '\n'
+        else:
+            notinjira += '%s' % j.get('userName') + '\n'
 
     summary += '\n' + '</person-mappings>'
     print summary
+    syncfile=open('./personMapping.xml', 'w+')
+    syncfile.write(summary)
+    #print '\n\n\n'
+    #print notinjira
+    outfile=open('./notinjira.out', 'w+')
+    outfile.write(notinjira)
+
             
   
 if __name__ == "__main__":
