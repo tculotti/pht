@@ -51,7 +51,9 @@ if __name__ == "__main__":
     #Pepare Jama data from json file
     json_data=open(in_file_jama)
     jama_data = json.load(json_data)
-    jama_user_data = jama_data["soap:Envelope"]["soap:Body"]["ns2:getUsersResponse"]["return"]    
+    #print jama_data
+    jama_user_data = jama_data["Body"]["getUsersResponse"]["return"]    
+    #jama_user_data = jama_data["soap:Envelope"]["soap:Body"]["ns2:getUsersResponse"]["return"]    
     json_data.close()
 
     gen_xml_file(jira_user_data, jama_user_data)
