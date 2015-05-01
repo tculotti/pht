@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<person-mappings xmlns="http://tasktop.com/xml/ns/sync/person-mapping-model">
+
+    <repository url="https://pht.jamacloud.com" mapping-ignore-case="false" default-person-id="jamasync"/>
+    <repository url="https://phtcorp.atlassian.net" mapping-ignore-case="false" default-person-id="jirasync"/>
+
+    <person-mapping>
+        <person id="62" />
+        <person id="acarnec" />
+    </person-mapping>
+    <person-mapping>
+        <person id="73" />
+        <person id="awong" />
+    </person-mapping>
+    <person-mapping>
+        <person id="99" />
+        <person id="aseric" />
+    </person-mapping>
+    <person-mapping>
+        <person id="22" />
+        <person id="aescallon" />
+    </person-mapping>
+    <person-mapping>
+        <person id="61" />
+        <person id="amcgrath" />
+    </person-mapping>
+    <person-mapping>
+        <person id="24" />
+        <person id="astetson" />
+    </person-mapping>
+    <person-mapping>
+        <person id="52" />
+        <person id="abelak" />
+    </person-mapping>
+    <person-mapping>
+        <person id="100" />
+        <person id="agizdic" />
+    </person-mapping>
+    <person-mapping>
+        <person id="63" />
+        <person id="abovat" />
+    </person-mapping>
+    <person-mapping>
+        <person id="64" />
+        <person id="bvis" />
+    </person-mapping>
+    <person-mapping>
+        <person id="31" />
+        <person id="bflanagan" />
+    </person-mapping>
+    <person-mapping>
+        <person id="83" />
+        <person id="byennaco" />
+    </person-mapping>
+    <person-mapping>
+        <person id="25" />
+        <person id="bglover" />
+    </person-mapping>
+    <person-mapping>
+        <person id="42" />
+        <person id="clehrman" />
+    </person-mapping>
+    <person-mapping>
+        <person id="70" />
+        <person id="cjiran" />
+    </person-mapping>
+    <person-mapping>
+        <person id="74" />
+        <person id="chughes" />
+    </person-mapping>
+    <person-mapping>
+        <person id="75" />
+        <person id="ctang" />
+    </person-mapping>
+    <person-mapping>
+        <person id="101" />
+        <person id="dcazi" />
+    </person-mapping>
+    <person-mapping>
+        <person id="102" />
+        <person id="dbaricevic" />
+    </person-mapping>
+    <person-mapping>
+        <person id="84" />
+        <person id="drakocevic" />
+    </person-mapping>
+    <person-mapping>
+        <person id="65" />
+        <person id="dmiletic" />
+    </person-mapping>
+    <person-mapping>
+        <person id="103" />
+        <person id="dkarinja-kardum" />
+    </person-mapping>
+    <person-mapping>
+        <person id="104" />
+        <person id="dsmolcic" />
+    </person-mapping>
+    <person-mapping>
+        <person id="105" />
+        <person id="DSrdelic" />
+    </person-mapping>
+    <person-mapping>
+        <person id="106" />
+        <person id="emilan" />
+    </person-mapping>
+    <person-mapping>
+        <person id="26" />
+        <person id="esaas" />
+    </person-mapping>
+    <person-mapping>
+        <person id="85" />
+        <person id="fditucci" />
+    </person-mapping>
+    <person-mapping>
+        <person id="27" />
+        <person id="hkilcoyne" />
+    </person-mapping>
+    <person-mapping>
+        <person id="53" />
+        <person id="hsmolyar" />
+    </person-mapping>
+    <person-mapping>
+        <person id="36" />
+        <person id="ifinlayson" />
+    </person-mapping>
+    <person-mapping>
+        <person id="86" />
+        <person id="ivetma" />
+    </person-mapping>
+    <person-mapping>
+        <person id="107" />
+        <person id="ibebic" />
+    </person-mapping>
+    <person-mapping>
+        <person id="108" />
+        <person id="ijovic" />
+    </person-mapping>
+    <person-mapping>
+        <person id="43" />
+        <person id="ierceg" />
+    </person-mapping>
+    <person-mapping>
+        <person id="109" />
+        <person id="ibralic" />
+    </person-mapping>
+    <person-mapping>
+        <person id="110" />
+        <person id="icovic" />
+    </person-mapping>
+    <person-mapping>
+        <person id="111" />
+        <person id="imarusic" />
+    </person-mapping>
+    <person-mapping>
+        <person id="112" />
+        <person id="itomicic" />
+    </person-mapping>
+    <person-mapping>
+        <person id="54" />
+        <person id="inerlovic" />
+    </person-mapping>
+    <person-mapping>
+        <person id="76" />
+        <person id="jhart" />
+    </person-mapping>
+    <person-mapping>
+        <person id="77" />
+        <person id="jmeyer" />
+    </person-mapping>
+    <person-mapping>
+        <person id="87" />
+        <person id="jpresto" />
+    </person-mapping>
+    <person-mapping>
+        <person id="55" />
+        <person id="jbilic" />
+    </person-mapping>
+    <person-mapping>
+        <person id="78" />
+        <person id="jkardum" />
+    </person-mapping>
+    <person-mapping>
+        <person id="56" />
+        <person id="jvranjic" />
+    </person-mapping>
+    <person-mapping>
+        <person id="113" />
+        <person id="jmustapic" />
+    </person-mapping>
+    <person-mapping>
+        <person id="88" />
+        <person id="jjadric" />
+    </person-mapping>
+    <person-mapping>
+        <person id="114" />
+        <person id="jsitum" />
+    </person-mapping>
+    <person-mapping>
+        <person id="66" />
+        <person id="kbazemore" />
+    </person-mapping>
+    <person-mapping>
+        <person id="46" />
+        <person id="kbriski" />
+    </person-mapping>
+    <person-mapping>
+        <person id="28" />
+        <person id="kgambarov" />
+    </person-mapping>
+    <person-mapping>
+        <person id="89" />
+        <person id="kgonsalves" />
+    </person-mapping>
+    <person-mapping>
+        <person id="50" />
+        <person id="lleclaire" />
+    </person-mapping>
+    <person-mapping>
+        <person id="67" />
+        <person id="llapitsky" />
+    </person-mapping>
+    <person-mapping>
+        <person id="115" />
+        <person id="ldujmic" />
+    </person-mapping>
+    <person-mapping>
+        <person id="39" />
+        <person id="lduong" />
+    </person-mapping>
+    <person-mapping>
+        <person id="116" />
+        <person id="lsapunar" />
+    </person-mapping>
+    <person-mapping>
+        <person id="68" />
+        <person id="mmatthews" />
+    </person-mapping>
+    <person-mapping>
+        <person id="117" />
+        <person id="mzlovic" />
+    </person-mapping>
+    <person-mapping>
+        <person id="118" />
+        <person id="mpremuzic" />
+    </person-mapping>
+    <person-mapping>
+        <person id="57" />
+        <person id="mtramontana" />
+    </person-mapping>
+    <person-mapping>
+        <person id="90" />
+        <person id="mcorkalo" />
+    </person-mapping>
+    <person-mapping>
+        <person id="119" />
+        <person id="mbozic" />
+    </person-mapping>
+    <person-mapping>
+        <person id="120" />
+        <person id="mdosenovic" />
+    </person-mapping>
+    <person-mapping>
+        <person id="121" />
+        <person id="mgaliot" />
+    </person-mapping>
+    <person-mapping>
+        <person id="122" />
+        <person id="msisara" />
+    </person-mapping>
+    <person-mapping>
+        <person id="91" />
+        <person id="mbaras" />
+    </person-mapping>
+    <person-mapping>
+        <person id="97" />
+        <person id="mmahagan" />
+    </person-mapping>
+    <person-mapping>
+        <person id="51" />
+        <person id="mdeviney" />
+    </person-mapping>
+    <person-mapping>
+        <person id="79" />
+        <person id="mraya" />
+    </person-mapping>
+    <person-mapping>
+        <person id="40" />
+        <person id="mnelligan" />
+    </person-mapping>
+    <person-mapping>
+        <person id="81" />
+        <person id="mamizic" />
+    </person-mapping>
+    <person-mapping>
+        <person id="123" />
+        <person id="mhorvat" />
+    </person-mapping>
+    <person-mapping>
+        <person id="92" />
+        <person id="nzmiric" />
+    </person-mapping>
+    <person-mapping>
+        <person id="58" />
+        <person id="npogacar" />
+    </person-mapping>
+    <person-mapping>
+        <person id="69" />
+        <person id="pmoore" />
+    </person-mapping>
+    <person-mapping>
+        <person id="124" />
+        <person id="pvidovic" />
+    </person-mapping>
+    <person-mapping>
+        <person id="29" />
+        <person id="pleeds" />
+    </person-mapping>
+    <person-mapping>
+        <person id="125" />
+        <person id="pgiljanovic" />
+    </person-mapping>
+    <person-mapping>
+        <person id="71" />
+        <person id="pmazancourt" />
+    </person-mapping>
+    <person-mapping>
+        <person id="93" />
+        <person id="randersen" />
+    </person-mapping>
+    <person-mapping>
+        <person id="72" />
+        <person id="rosuna" />
+    </person-mapping>
+    <person-mapping>
+        <person id="94" />
+        <person id="rdougherty" />
+    </person-mapping>
+    <person-mapping>
+        <person id="95" />
+        <person id="schan" />
+    </person-mapping>
+    <person-mapping>
+        <person id="126" />
+        <person id="smatijevic" />
+    </person-mapping>
+    <person-mapping>
+        <person id="59" />
+        <person id="scicin-sain" />
+    </person-mapping>
+    <person-mapping>
+        <person id="30" />
+        <person id="sakillian" />
+    </person-mapping>
+    <person-mapping>
+        <person id="32" />
+        <person id="sbray" />
+    </person-mapping>
+    <person-mapping>
+        <person id="60" />
+        <person id="snandamury" />
+    </person-mapping>
+    <person-mapping>
+        <person id="127" />
+        <person id="tscepanovic" />
+    </person-mapping>
+    <person-mapping>
+        <person id="80" />
+        <person id="tnguyen" />
+    </person-mapping>
+    <person-mapping>
+        <person id="35" />
+        <person id="tculotti" />
+    </person-mapping>
+    <person-mapping>
+        <person id="47" />
+        <person id="tmcloughlin" />
+    </person-mapping>
+    <person-mapping>
+        <person id="128" />
+        <person id="terceg" />
+    </person-mapping>
+    <person-mapping>
+        <person id="98" />
+        <person id="twong" />
+    </person-mapping>
+    <person-mapping>
+        <person id="96" />
+        <person id="uadhikari" />
+    </person-mapping>
+    <person-mapping>
+        <person id="82" />
+        <person id="valebic" />
+    </person-mapping>
+    <person-mapping>
+        <person id="129" />
+        <person id="vcovic1" />
+    </person-mapping>
+
+</person-mappings>

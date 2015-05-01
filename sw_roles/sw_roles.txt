@@ -1,0 +1,136 @@
+*** Settings ***
+Suite Setup       Open Browser And Navigate To SSA
+Suite Teardown    Close All Browsers
+Test Teardown	  Logout And Navigate To SSA Login
+Force Tags        US5691
+Resource          ../../_Resources/StudyWorksKeywords.txt
+Resource          ../../_Resources/ViewDataKeywords.txt
+Library             ../../_Resources/ExtendedKeywords/Extended_Selenium_Keywords.py
+
+Library           Selenium2Library
+
+*** Variables ***
+${STUDY_NAME}	SitePad63_sw4x
+${SW_SPM_LOGIN_NAME}	sitepad63sponsor
+${SW_SITE_LOGIN_NAME}	sitepad63site
+${SITE_PRINCIPAL_INVESTIGATOR}	Site Principal Investigator
+${SUBJECT_ID}   001-001
+
+
+*** Test Cases ***
+User Go To View Data And Open The Audit Trial
+    [Documentation]    Opens the Audit Trial and closes it.
+    [Tags]    TC7463
+    Login To SSA    ${PHT_STUDY_SUPPORT}    ${PHT_STUDY_SUPPORT_PWD}
+    Search For And Navigate To Study    ${STUDY_NAME}
+    Navigate To View Data
+    Search For And Navigate To Subject    ${SUBJECT_ID}
+    Capture Page Screenshot		TC7463_View_Data.png
+
+Sorting on SubjectID column
+	[Documentation]	This test case will collect the SubjectID's from View data , sorts them in Ascending or Descending order and also verifies if they are sorted.
+    #DE9272
+    [Tags]    TC7464
+    Login To SSA    ${PHT_STUDY_SUPPORT}    ${PHT_STUDY_SUPPORT_PWD}
+    Search For And Navigate To Study    ${STUDY_NAME}
+    Navigate To View Data
+    sleep     5s
+    ${origList}=    Get SubjectIDs
+    Sort By SubjectID
+    sleep     5s
+    ${newList}=    Get SubjectIDs
+    list should be sorted asc    ${newList}
+    Sort By SubjectID
+    sleep    5s
+    ${newList}=    Get SubjectIDs
+    list should be sorted desc    ${newList}
+
+Sorting on SiteID column
+	[Documentation]	This test case will collect the SiteID's from View data , sorts them in Ascending or Descending order and also verifies if they are sorted.
+    [Tags]    TC7465
+    Login To SSA    ${PHT_STUDY_SUPPORT}    ${PHT_STUDY_SUPPORT_PWD}
+    Search For And Navigate To Study    ${STUDY_NAME}
+    Navigate To View Data
+    sleep     5s
+    ${origList}=    Get SiteIDs
+    Sort By SiteID
+    sleep     5s
+    ${newList}=    Get SiteIDs
+    list should be sorted asc    ${newList}
+    Sort By SiteID
+    sleep    5s
+    ${newList}=    Get SiteIDs
+    list should be sorted desc    ${newList}
+
+
+Sorting on Subject Reference
+	[Documentation]	This test case will collect the Subject Reference from View data , sorts them in Ascending or Descending order and also verifies if they are sorted.
+    [Tags]    TC7466
+    Login To SSA    ${PHT_STUDY_SUPPORT}    ${PHT_STUDY_SUPPORT_PWD}
+    Search For And Navigate To Study    ${STUDY_NAME}
+    Navigate To View Data
+    sleep     5s
+    ${origList}=    Get Subject References
+    Sort By Subject Reference
+    sleep     5s
+    ${newList}=    Get Subject References
+    list should be sorted asc    ${newList}
+    Sort By Subject Reference
+    sleep    5s
+    ${newList}=    Get Subject References
+    list should be sorted desc    ${newList}
+
+Sorting on Enrollment Date
+	[Documentation]	This test case will collect the Enrollment Date from View data , sorts them in Ascending or Descending order and also verifies if they are sorted.
+    [Tags]    TC7467
+    Login To SSA    ${PHT_STUDY_SUPPORT}    ${PHT_STUDY_SUPPORT_PWD}
+    Search For And Navigate To Study    ${STUDY_NAME}
+    Navigate To View Data
+    sleep     5s
+    ${origList}=    Get Subject Enrollment Dates
+    Sort By Subject Reference
+    sleep     5s
+    ${newList}=    Get Subject Enrollment Dates
+    list should be sorted asc    ${newList}
+    Sort By Subject Reference
+    sleep    5s
+    ${newList}=    Get Subject Enrollment Dates
+    list should be sorted desc    ${newList}
+
+Sorting on Phase
+	[Documentation]	This test case will collect the Phase from View data , sorts them in Ascending or Descending order and also verifies if they are sorted.
+    [Tags]    TC7468
+    Login To SSA    ${PHT_STUDY_SUPPORT}    ${PHT_STUDY_SUPPORT_PWD}
+    Search For And Navigate To Study    ${STUDY_NAME}
+    Navigate To View Data
+    sleep     5s
+    ${origList}=    Get Phases List
+    Sort By Phase
+    sleep     5s
+    ${newList}=    Get Phases List
+    list should be sorted asc    ${newList}
+    Sort By Phase
+    sleep    5s
+    ${newList}=    Get Phases List
+    list should be sorted desc    ${newList}
+
+Sorting on Deleted column
+	[Documentation]	This test case will collect the Deleted from View data , sorts them in Ascending or Descending order and also verifies if they are sorted.
+    [Tags]    TC7469
+    Login To SSA    ${PHT_STUDY_SUPPORT}    ${PHT_STUDY_SUPPORT_PWD}
+    Search For And Navigate To Study    ${STUDY_NAME}
+    Navigate To View Data
+    sleep     5s
+    ${origList}=    Get Delted State List
+    Sort By Deleted
+    sleep     5s
+    ${newList}=    Get Delted State List
+    list should be sorted desc    ${newList}
+    Sort By Deleted
+    sleep    5s
+    ${newList}=    Get Delted State List
+    list should be sorted asc    ${newList}
+
+
+
+
