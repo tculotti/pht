@@ -1,0 +1,207 @@
+*** Variables ***
+${ACTIONS_SELECT}					actions
+${ADD_NEW_SUBJ_BUTTON}				//button[text()='Add new Subject']
+${CALENDAR_WIDGET_DONE_BUTTON}		//button[text()='Done']
+${CALENDAR_WIDGET_NOW_BUTTON}		//button[text()='Now']
+${CHOOSE_ANOTHER_FORM_LINK}			Choose Another Form
+${CITY_INPUT}						city
+${COUNTRY_SELECT}					country
+${COMPLETE_NEW_FORM}				Complete New Form
+${DOMAIN_TYPE_SELECT}				domainType
+${DELETE_FORM_BUTTON}				deleteForm
+${DELETE_FORM_REASON_TEXT}			deletedReasonText
+${EDIT_ADD_SITE_BUTTON}				add_edit_site
+${EDIT_FORM_BUTTON}					editForm
+${VIEW_STUDYSETUP_LINK_SUFFIX}		_ViewStudySetup
+${FIELD_EDIT_REASON_SELECT}			selbox
+${FILTER_FORM_SELECT}				filter_form
+${GO_BACK_BUTTON}					//button[@type="button" and contains(text(),'Go back')]
+${LAST_ACTIVITY_COLUMN}				//table//th//div[text()='Last Activity']
+${LOCK_FORM_BUTTON}					lockForm
+${LOGIN_USERNAME_FIELD}				username
+${LOGIN_PASSWORD_FIELD}				password
+${LOGIN_SUBMIT_BUTTON}				signin_btn_1
+${LOGIN_SIGNIN_BUTTON}				Sign_In_btn
+${NPHT_LOGIN_BUTTON}				Log_In_btn
+${LOGIN_WELCOME_TEXT}				Welcome To PHT StudyWorks
+${MY_STUDIES_BUTTON}				//*[@id='btnMyStudies' and @title="My Studies"]
+${LOGOUT_LINK}						css=a[title="Log Out"]
+${LOGOUT_MESSAGE}					Thank you for using StudyWorks
+${GO_TO_SW_LOG_IN_BUTTON}			//*[@value="Go to StudyWorks login"]
+${MODAL_DIALOG_OPEN_BUTTON}			//button//span[text()='Open']
+${MODAL_DIALOG_SUBMIT_BUTTON}		//button//span[text()='Submit']	# submit change button
+${MODAL_DIALOG_SUBMIT_FORM_BUTTON}	//div[@aria-describedby='SubmitChanegeset']//button//span[text()='Submit']	# submit change button with password
+${MODAL_DIALOG_CANCEL_BUTTON}		//button//span[text()='Cancel']
+${MY_STUDIES_TEXT}					My Studies
+${NEW_DATA_AVAILABLE}				New Data Available
+${BATTERY_PERCENT_REMAINING_INPUT}	Percentage of battery remaining
+${NO_DATA_AVAILABLE_TABLE}			//td[contains(text(),'No data available in table')]
+${ORG_NAME_INPUT}					organization_name
+${PARENT_SELECT}					parentcode
+${PERFORMED_BY} 					//*[@id='currentStatus']/p[2]
+${PICK_FORM_KRSE_SELECT}			//select[@id='krse']
+${PICK_FORM_KRSU_SELECT}			//select[@id='krsu']
+${PI_FIRST_NAME_INPUT}				pi_given_name
+${PI_LAST_NAME_INPUT}				principal_investigator
+${POSTAL_CODE_INPUT}				zip_postal_code
+${REPORT_START_DATE_TIME_INPUT}		Report start date and time
+${SHIPPING_ADDRESS_INPUT}			shipping_address1
+${SHIPPING_FAX_INPUT}				shipping_fax
+${SHIPPING_PHONE_INPUT}				shipping_phone
+${SITE_CODE_INPUT}					site_code
+${SMART_REPORTS_TEXT}				SmartReports
+${STATE_SELECT}						state_select
+${STUDY_SEARCH_INPUT}				//div[@id="study_table_filter"]/input
+${SITE_SEARCH_INPUT}				searchfilter
+${SITE_RADIO_BUTTON}				_radioButton
+${STUDY_LINK_SUFFIX}				_StudyWorks
+${SUBJECT_INFORMATION_TEXT}			Subject Information
+${SUBJECT_LIST_LINK}				Subject List
+${SUBJECT_SEARCH_INPUT}				//div[@id="pt_table_filter"]/label/input
+${SUBJECT_TABLE}					pt_table
+${SUBMIT_CHANGES_BUTTON}			submitChanges
+${SUBMIT_FORM_BUTTON}				submitForm
+#${GATEWAY_BUTTON}                   //*[@id="sitegateway"]/input[11]
+${GATEWAY_BUTTON}                   sitegateway
+${SUBMIT_PASSWORD_INPUT}			pwd
+${SYSTEM_VARIABLES}					System Variables
+${LOGPAD}							LogPad
+${UNLOCK_FORM_BUTTON}				unlockForm
+#//*[@id="subMenu_ViewData34_Row1"]
+${VIEW_DATA_MENU_LINK}              //*[@id="div_ExtendedViewData_Row1"]
+#//*[@id="lbl_ViewData_Row1"]
+${VIEW_DATA_LINK}                   //*[@id="po_ViewData_rdPopupOptionItem_Row1"]
+${VIEW_AUDIT_TRAIL_BUTTON}			viewAuditTrail
+${TITLE_AUDIT_TRAIL}				Audit Trail
+${AUDIT_TRAIL_SITE_USER_INFO_BLOCK}		//table[2]/tbody/tr[1]/td[1]
+
+#Add User Form Locators
+${ADD_USER_SECTION}					//table[@id='AddUser']
+${ADD_USER}							Add User
+${NEW_USER_INPUT}					New User
+${USER_ROLE_INPUT}					User Role
+${USER_SITE_ID_INPUT}				User Site ID
+${USER_ID_INPUT}					User ID
+${LANGUAGE_SELECT}					Language
+
+# Training Form Locators
+${TRAINIG_QUESTION_INPUT}			Trained
+
+#Deactive User Form Locators
+${DEACTIVATE_USER_SECTION}			//table[@id='DeactivateUser']
+${DEACTIVATE_USER}					Deactivate User
+
+#Deactive Subject User Form Locators
+${DEACTIVATE_SUBJECT}				Deactivate Subject
+
+#Screen Demo Form Locators
+${SW_SCREEN_DEMO}						Screen Demo
+${SCREEN_DEMO_DATE_ONLY}				DateOnly
+${SCREEN_DEMO_DATE_TIME_ONLY}			DateTime
+${SCREEN_DEMO_DROPLIST}					Drop List
+${SCREEN_DEMO_DROPLIST_GROUP}			DropList_0
+${SCREEN_DEMO_ELAPSED_TIME}				Elapsed Time Only
+${SCREEN_DEMO_MC_ONE}					MC One
+${SCREEN_DEMO_MC_ONE_GROUP}				MCOne_0
+${SCREEN_DEMO_MESSAGE}					Message
+${SCREEN_DEMO_ONE}						ONE
+${SCREEN_DEMO_NUMBERPAD}				NumberPad
+${SCREEN_DEMO_PUSH_BUTTON}				Push Button
+${SCREEN_DEMO_ADHOC}					The subject can enter additional, ad hoc comments
+${SCREEN_DEMO_SUBJECT_COMPLETED_DIARY}	SubjectcompletedDiary
+${SCREEN_DEMO_TIME_ONLY}				TimeOnly
+${SCREEN_DEMO_TYPED_COMMENTS}			Typed Comments
+${SCREEN_DEMO_VAS_PAIN}					Touch the line to indicate your pain over the past 24 hours.
+${SCREEN_DEMO_VERTICAL_VAS}				VerticalVAS
+${SCREEN_DEMO_VDATE_TIME}				VdateTime
+${SCREEN_DEMO_CAREGIVER_INITIALS}		Caregiver Initials
+${SCREEN_DEMO_ADHOC_TEXT} 				//*[@id='main']/table/tbody/tr[2]/td/table/tbody/tr/td[2]
+
+###BPI Form Locators
+${BPI_1.O}		Throughout our lives, most of us have had pain from time to time (such as minor headaches, sprains and toothaches). Have you had pain other than these everyday kinds of pain today? (BP 1.0)
+${BPI_2.O}		Please rate your pain by selecting the one number that best describes your pain at its WORST in the last 24 hours. (BP 2.0)
+${BPI_3.O}	Please rate your pain by selecting the one number that best describes your pain at its LEAST in the last 24 hours. (BP 3.0)
+${BPI_4.O}	Please rate your pain by selecting the one number that best describes your pain at its LEAST in the last 24 hours. (BP 4.0)
+${BPI_5.O}	Please rate your pain by selecting the one number that tells how much pain you have RIGHT NOW. (BP 5.0)
+${BPI_6.O}	In the last 24 hours, how much relief have pain treatments or medications provided? Please select the one percentage that most shows how much RELIEF you have received. (BP 6.0)
+${BPI_7.O}	Select the one number that describes how, during the past 24 hours, pain has interfered with your A. General Activity (BP 7.0)
+${BPI_8.O}	B. MOOD (BP 8.0)
+${BPI_9.O}	C. WALKING ABILITY (BP 9.0)
+${BPI_10.O}	C. NORMAL WORK (includes both work outside the home and housework). (BP 10.)
+${BPI_11.O}	D. RELATIONS WITH OTHER PEOPLE. (BP 11.0)
+${BPI_12.O}	F. SLEEP. (BP 12.0)
+${BPI_13.O}	G. ENJOYMENT OF LIFE. (BP 13.0)
+
+
+##EQ5D Locators
+${EQ5D_Q1}	Please indicate which statement best describes your own health state today. MOBILITY
+${EQ5D_Q2}	Please indicate which statement best describes your own health state today. SELF CARE
+${EQ5D_Q3}	Please indicate which statement best describes your own health state today. USUAL ACTIVITIES (e.g. work, study, housework, family or leisure activities):
+${EQ5D_Q4}	Please indicate which statement best describes your own health state today. PAIN/DISCOMFORT
+${EQ5D_Q5}	Please indicate which statement best describes your own health state today. ANXIETY/DEPRESSION
+${EQ5D_Q6}	We would like you to indicate on this scale how good or bad your own health is today, in your opinion.
+
+
+#System Variable Form Locators
+${DEACTICATE_SUBJECT_DATE_INPUT}		//td[@title='0: Deactivate Subject Date']//input
+${PHASE_SELECT}							//td[@title='0: Phase']//select
+${PHASE_DATE_TIME_INPUT}				//td[@title='0: Phase date and time']//input
+
+#Assignment Form Locators
+${ASSIGNMENT}							Assignment
+${SITENUMBER_SELECT}					//td[@title='0: Site Number']//select
+${SUBJECTID_INPUT}						//td[@title='0: Subject ID']//input
+${SUBJECTINITIALS_INPUT}				//td[@title='0: Subject Initials']//input
+${ADD_LANGUAGE_SELECT}					//td[@title='0: Language']//select
+${SP_DATETIME_INPUT}					//td[@title='0: Patient SitePad Start Date and Time']//input
+${REPORT_DATE_INPUT}					//td[@title='0: Report date']//input
+${REPORT_DATETIME_INPUT}				//td[@title='0: Report start date and time']//input
+${TIMEZONE_SELECT}						//td[@title='0: Time Zone']//select
+${PHASE_AT_ENTRY_SELECT}				//td[@title='0: Phase At Entry']//select
+${PHASE_START_DATETIME_INPUT}			//td[@title='0: Phase At Entry Timestamp']//input
+${PHASE_START_TIMEZONE_OFFSET_INPUT}			//td[@title='0: Phase At Entry Time Zone Offset in Milliseconds']//input
+
+
+#Loop1 Form Locators
+${LOOP1}								Loop1
+${LOOP1B_MEDS_SELECT}					Which other medication did you take today?
+${LOOP1B_MEDS_SELECT_SKP}				MedLoop_SKP
+${LOOP1B_MEDS_TIME_INPUT}				What time did you take the other medication?
+
+#Loop1 Form Locators
+${LOOP2}								Loop2
+${FOOD_EATEN_LIST}						Select a food you have eaten today:
+${MEDS_TAKEN_LIST}						Which pain medication have you taken today?
+
+#Visit Start Form Locators
+${VISIT_START}							Visit Start
+${VISIT_START_EVENT_ID}					Event ID
+${VISIT_START_EVENT_DATE}				Event Start Date
+
+#NPS Form Locators
+${NPS_HOT_PAIN_FEELS}					Please use the scale below to tell us how HOT your pain feels. Words used to describe very hot pain include
+${NPS_SHARP_PAIN_FEELS}					Please use the scale below to tell us how SHARP your pain feels. Words used to describe
+${NPS_PAIN_INTENSITY}					Please use the scale below to tell us how INTENSE your pain is. (NP 7.0)
+${NPS_INTENSE_DEEP_PAIN}				HOW INTENSE IS YOUR DEEP PAIN? (NP 19.0)
+${NPS_UNPLEASENT_PAIN_FEELS}			With this scale, please tell us how UNPLEASANT your pain feels. (NP 16.0)
+${NPS_TIME_QUALITY_PAIN}				Which of the following best describes the TIME quality of your pain? Please tick only one answer. (NP 14.0)
+${NPS_SURFACE_PAIN}						HOW INTENSE IS YOUR SURFACE PAIN? (DE 17.0)
+${NPS_ITCHY_PAIN}						Please use the scale below to tell us how ITCHY your pain feels. Words used to describe itchy pain include
+${NPS_SENSITIVE_SKIN}					Please use the scale below to tell us how SENSITIVE your skin is to light touch or clothing. Words used to describe sensitive skin include
+${NPS_COLD_PAIN_FEELS}					Please use the scale below to tell us how COLD your pain feels. Words used to describe very cold pain include
+${NPS_DULL_PAIN_FEELS}					Please use the scale below to tell us how DULL your pain feels. Words used to describe very dull pain include
+${NPS_SINGLE_PAIN_ALL_TIME_CHOICE}		I feel a single type of pain ALL THE TIME.
+
+#Access Management Grid Locators
+${AMG_BUTTON}	btnManageAccessGrid
+${AMG_STUDY_DROP_DOWN}	study_ID
+${AMG_SITE_USER_NAME_LINK}		all_${SW_SITE_LOGIN_NAME}_name
+${AMG_EDIT_USER_ROLE_DROP_DOWN}		krRole
+${AMG_EDIT_USER_UPDATE_BUTTON}		update_button
+
+
+
+
+
+
+

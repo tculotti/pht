@@ -1,0 +1,31 @@
+*** Settings ***
+Suite Setup       Open Browser And Navigate To SSA
+#Suite Teardown    Close All Browsers
+#Test Teardown	  Logout And Navigate To SSA Login
+Force Tags        ROLES
+Resource          ../../_Resources/StudyWorksKeywords.txt
+Resource          ../../_Resources/ViewDataKeywords.txt
+Library             ../../_Resources/ExtendedKeywords/Extended_Selenium_Keywords.py
+
+Library           Selenium2Library
+
+*** Variables ***
+${STUDY_NAME}	                Roche_BH29768
+${SW_SPM_LOGIN_NAME}	        sitepad63sponsor
+${SW_SITE_LOGIN_NAME}	        sitepad63site
+${SITE_PRINCIPAL_INVESTIGATOR}    Site Principal Investigator
+${SITE_STUDY_COORDINATOR_LOGIN_NAME}    Roche_BH29768
+${SITE_STUDY_COORDINATOR_LOGIN_PASS}    Pht54321
+${SUBJECT_ID}                   000007-001
+
+
+*** Test Cases ***
+Ste Coordicator Can Access Site Gateway
+    [Documentation]    This test case will verify the presence of th Site Gateway button for a Site Coodinator.
+    [Tags]    COORDINATOR
+    Login To SSA    ${SITE_STUDY_COORDINATOR_LOGIN_NAME}    ${SITE_STUDY_COORDINATOR_LOGIN_PASS}
+    Search For And Navigate To Study    ${STUDY_NAME}
+    Navigate To View Data
+    Search For And Navigate To Subject    ${SUBJECT_ID}
+    Page Should Contain Button    ${GATEWAY_BUTTON}
+#   Capture Page Screenshot		TC7463_View_Data.png

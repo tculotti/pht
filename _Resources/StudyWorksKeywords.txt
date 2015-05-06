@@ -1,0 +1,538 @@
+*** Settings ***
+Resource          CommonConstants.txt
+Resource          StudyWorksLocators.txt
+Resource          DatabaseKeywords.txt
+Library           Database Library
+Library           Selenium2Library
+Library           Collections
+Library				DateTime
+
+***Variables***
+${VISIT_SCREENING}	Screening
+${SUB_TIMEZONE}    America/New_York
+
+
+*** Keywords ***
+Open Browser And Navigate To SSA
+    Open Browser    ${SW_URL}    ${BROWSER}
+    Maximize Browser Window
+
+Open Browser and Login To SSA
+    [Arguments]    ${username}    ${password}
+    Open Browser And Navigate To SSA
+    Login To SSA    ${username}    ${password}
+
+Login To SSA
+    [Arguments]    ${username}    ${password}
+    Input Text    ${LOGIN_USERNAME_FIELD}    ${username}
+    Wait until    Element Should Be Enabled    ${LOGIN_SUBMIT_BUTTON}
+    Click Button    ${LOGIN_SUBMIT_BUTTON}
+    Wait Until	   Page Should Contain Element    ${LOGIN_PASSWORD_FIELD}
+    Input Password    ${LOGIN_PASSWORD_FIELD}    ${password}
+    Wait until    Element Should Be Visible    ${NPHT_LOGIN_BUTTON}
+    Click Button    ${NPHT_LOGIN_BUTTON}
+    My Studies Page Displays
+
+Login To SSA As Non PHT User
+    [Arguments]    ${username}    ${password}
+    Input Text    ${LOGIN_USERNAME_FIELD}    ${username}
+    Wait until    Element Should Be Enabled    ${LOGIN_SUBMIT_BUTTON}
+    Click Button    ${LOGIN_SUBMIT_BUTTON}
+    Wait Until	   Page Should Contain Element    ${LOGIN_PASSWORD_FIELD}
+    Input Password    ${LOGIN_PASSWORD_FIELD}    ${password}
+    Wait until    Element Should Be Visible    ${NPHT_LOGIN_BUTTON}
+    Click Button    ${NPHT_LOGIN_BUTTON}
+    My Studies Page Displays
+
+Login To SSA And Create A New Site
+    Open Browser And Login To SSA    ${PHT_PROJECT_ADMINISTRATOR}    ${SQE_PASSWORD}
+    Search For Study    ${STUDY_ID}
+    Click On Edit/Add Sites    ${STUDY_ID}
+    ${siteNumber}=    Get Next Available Site Number
+    Create A New Site    ${siteNumber}
+    Set Suite Variable    ${SITE_NUMBER}    ${siteNumber}
+    Close Browser
+    [Return]    ${siteNumber}
+
+Logout Of SSA
+    Click Link    ${LOGOUT_LINK}
+    Wait Until Page Contains    ${LOGOUT_MESSAGE}
+
+Navigate To SSA Login After Successful Logout
+	Wait Until	Page Should Contain    ${LOGOUT_MESSAGE}
+	Click Element	${GO_TO_SW_LOG_IN_BUTTON}
+	Wait Until	Page Should Contain Element    ${LOGIN_USERNAME_FIELD}
+
+Logout Of StudyWorks
+	Click Link	Logout
+	Wait Until Page Contains    ${LOGOUT_MESSAGE}
+
+Logout And Navigate To SSA Login
+	${Msg}    ${Response}=    Run Keyword And Ignore Error    Logout Of StudyWorks
+    Run Keyword If    '${Msg}'=='PASS'    Navigate To SSA Login After Successful Logout
+	Run Keyword If    '${Msg}'=='FAIL'    Logout Of SSA
+    Run Keyword If    '${Msg}'=='FAIL'    Navigate To SSA Login After Successful Logout
+
+Click On Edit/Add Sites
+    [Arguments]    ${studyName}
+    Click Link    ${studyName}${EDIT_SITES_LINK_SUFFIX}
+    Wait Until	   Page Should Contain Element    ${SITE_CODE_INPUT}
+
+Click On View Sites
+	[Documentation]    This Keyword clicks on View site when login as PHT System Administrator.
+    [Arguments]    ${studyName}
+    Click Link    ${studyName}${VIEW_SITES_LINK_SUFFIX}
+    Wait Until	   Page Should Contain Element    ${SITE_CODE_INPUT}
+
+Click On Edit PHT Users
+    [Arguments]    ${studyName}
+    Click Link    ${studyName}${EDIT_PHT_USERS_LINK_SUFFIX}
+    Wait Until	   Page Should Contain Element    ${SAVE_AND_CONTINUE_BUTTON}
+
+Click On View Study Setup
+    [Arguments]    ${studyName}
+    Click Link    ${studyName}${VIEW_STUDYSETUP_LINK_SUFFIX}
+    Wait Until	   Page Should Contain Element    ${STUDY_SETUP_SAVE_AND_CONTINUE_BUTTON}
+
+Search For Study
+    [Arguments]    ${studyName}
+    Wait Until	   Page Should Contain Element    ${STUDY_SEARCH_INPUT}
+    Input Text    ${STUDY_SEARCH_INPUT}    ${studyName}
+    Wait Until	   Page Should Contain Element    ${studyName}${STUDY_LINK_SUFFIX}
+
+Search For And Navigate To Study
+    [Arguments]    ${studyName}
+    Search For Study    ${studyName}
+    Click Link    ${studyName}${STUDY_LINK_SUFFIX}
+    Wait Until Page Contains    ${SMART_REPORTS_TEXT}
+
+Navigate To View Data
+    Mouse Over    ${VIEW_DATA_MENU_LINK}
+    Click Link    ${VIEW_DATA_LINK}
+    Wait Until    Element Should Be Visible    ${SUBJECT_TABLE}
+
+Search For And Navigate To Subject
+    [Arguments]    ${subjectId}
+    Wait Until    Element Should Be Visible    ${SUBJECT_SEARCH_INPUT}
+    Input Text    ${SUBJECT_SEARCH_INPUT}    ${subjectId}
+    Wait Until    Page Should Contain Element    xpath=//a[text()='${subjectId}']
+    Repeat Keyword    ${3} ${TIMES}    Run Keyword and Ignore Error    Click Element    xpath=//a[text()='${subjectId}']
+    Wait Until Page Contains    ${SUBJECT_INFORMATION_TEXT}
+
+Filter By Form
+    [Arguments]    ${formName}
+    Select From List    ${FILTER_FORM_SELECT}    ${formName}
+
+Sort Forms by Last Activity
+    Click Element    ${LAST_ACTIVITY_COLUMN}
+    Sleep    1    ${SEC}
+    Click Element    ${LAST_ACTIVITY_COLUMN}
+    Sleep    1    ${SEC}
+
+View Form
+    [Arguments]    ${formName}
+    Wait Until	   Page Should Contain Element    xpath=//a[text()='${formName}']
+    Click Element    xpath=//a[text()='${formName}']
+    Wait Until	   Page Should Contain Element    ${GO_BACK_BUTTON}
+    Wait Until	   Page Should Contain Element    //h3[@id='formName'][contains(text(), '${formName}')]
+
+Unlock Current Form
+    Click Button    ${UNLOCK_FORM_BUTTON}
+    Wait Until	   Page Should Contain Element    ${SUBMIT_PASSWORD_INPUT}
+    Input Password    ${SUBMIT_PASSWORD_INPUT}    ${SQE_PASSWORD}
+    Sleep    3 ${SEC}    #Needed to be able to click on the submit button
+    Click Element    ${MODAL_DIALOG_SUBMIT_BUTTON}
+    Wait Until Keyword Succeeds    ${TIMEOUT}    ${RETRY_INTERVAL}    Confirm Action
+    Wait Until    Element Should Be Visible    ${LOCK_FORM_BUTTON}
+
+Edit Current Form
+    Click Button    ${EDIT_FORM_BUTTON}
+    Wait Until Keyword Succeeds    ${TIMEOUT}    ${RETRY_INTERVAL}    Confirm Action
+
+Edit Form
+    [Arguments]    ${formName}
+    View Form    ${formName}
+    Unlock Current Form
+    Edit Current Form
+
+Submit Changes
+    Click Button    ${SUBMIT_CHANGES_BUTTON}
+    Wait Until	   Page Should Contain Element    ${SUBMIT_PASSWORD_INPUT}
+    Input Password    ${SUBMIT_PASSWORD_INPUT}    ${SQE_PASSWORD}
+    Sleep    3 ${SEC}    #Needed to be able to click on the submit button
+    Wait Until    Click Element    ${MODAL_DIALOG_SUBMIT_FORM_BUTTON}
+    Wait Until Keyword Succeeds    ${TIMEOUT}    ${RETRY_INTERVAL}    Confirm Action
+
+Modify Phase Date and Time
+    Wait Until    Element Should Be Visible    ${PHASE_DATE_TIME_INPUT}
+    Click Element    ${PHASE_DATE_TIME_INPUT}
+    Wait Until	   Page Should Contain Element    xpath=${CALENDAR_WIDGET_NOW_BUTTON}
+    Click Element    xpath=${CALENDAR_WIDGET_NOW_BUTTON}
+    Click Element    xpath=${CALENDAR_WIDGET_DONE_BUTTON}
+    Confirm Edit of Field
+
+Delete Deactivate Subject Date field
+    Wait Until    Element Should Be Visible    ${DEACTICATE_SUBJECT_DATE_INPUT}
+    Clear Element Text    ${DEACTICATE_SUBJECT_DATE_INPUT}
+    Wait Until	   Page Should Contain Element    xpath=${CALENDAR_WIDGET_DONE_BUTTON}
+    Click Element    xpath=${CALENDAR_WIDGET_DONE_BUTTON}
+    Confirm Edit of Field
+
+Open Deactivate Subject User Form By Index
+    [Arguments]    ${index}
+    Wait Until    Page Should Contain Element    ${FILTER_FORM_SELECT}
+    Filter By Form    ${DEACTIVATE_SUBJECT}
+    Sort Forms by Last Activity
+    View Form    ${DEACTIVATE_SUBJECT} (${index})
+
+Confirm Edit of Field
+    Wait Until    Element Should Be Visible    ${FIELD_EDIT_REASON_SELECT}
+    Select From List By Label    ${FIELD_EDIT_REASON_SELECT}    ${NEW_DATA_AVAILABLE}
+    Input Text    text    ${BASE_SUBJECT_INITIALS}
+    Sleep    3 ${SEC}    #Needed to be able to click on the submit button
+    Click Element    ${MODAL_DIALOG_SUBMIT_BUTTON}
+
+Modify Phase
+    [Arguments]    ${phase}
+    Wait Until    Element Should Be Visible    ${PHASE_SELECT}
+    Select From List By Label    ${PHASE_SELECT}    ${phase}
+    Confirm Edit of Field
+    Form Should Contain List With Value Selected    Phase    ${phase}
+
+Delete Current Form
+    Click Button    ${DELETE_FORM_BUTTON}
+    Wait Until	   Page Should Contain Element    ${DELETE_FORM_REASON_TEXT}
+    Input Text    ${DELETE_FORM_REASON_TEXT}    ${BASE_SUBJECT_INITIALS}
+    Input Password    ${SUBMIT_PASSWORD_INPUT}    ${SQE_PASSWORD}
+    Sleep    3 ${SEC}    #Needed to be able to click on the submit button
+    Click Element    ${MODAL_DIALOG_SUBMIT_BUTTON}
+    Wait Until Keyword Succeeds    ${TIMEOUT}    ${RETRY_INTERVAL}    Confirm Action
+    Wait Until Page Contains    ${SUBJECT_INFORMATION_TEXT}
+
+Delete Form
+    [Arguments]    ${formName}
+    View Form    ${formName}
+    Unlock Current Form
+    Delete Current Form
+
+View Form By Form Name And Index
+    [Arguments]    ${formName}    ${index}
+    ${xpathSelector}=    Set Variable    (//a[contains (text(),'${formName}')])[${index}]
+    Wait Until    Page Should Contain Element    xpath=${xpathSelector}
+    Click Element    xpath=${xpathSelector}
+    Wait Until    Element Should Be Visible    ${GO_BACK_BUTTON}
+
+Open Add User Form By Index
+    [Arguments]    ${index}
+    Wait Until    Page Should Contain Element    ${FILTER_FORM_SELECT}
+    Filter By Form    ${ADD_USER}
+    Sort Forms by Last Activity
+    View Form By Form Name And Index    ${ADD_USER}    ${index}
+    Wait Until    Page Should Contain Element    ${ADD_USER_SECTION}
+
+Open Deactivate User Form By Index
+    [Arguments]    ${index}
+    Wait Until    Page Should Contain Element    ${FILTER_FORM_SELECT}
+    Filter By Form    ${DEACTIVATE_USER}
+    Sort Forms by Last Activity
+    View Form By Form Name And Index    ${DEACTIVATE_USER}    ${index}
+    Wait Until    Page Should Contain Element    ${DEACTIVATE_USER_SECTION}
+
+Get Study Works Report Date
+    ${ReportDateLocator}=    Get Complete Xpath For Form Field    ${REPORT_START_DATE_TIME_INPUT}
+    ${ReportDate}=    Get Value    ${ReportDateLocator}
+    [Return]    ${ReportDate}
+
+Select Most Recent Add User Form
+    Open Add User Form By Index    ${1}
+
+Select Most Recent Deactivate User Form
+    Open Deactivate User Form By Index    ${1}
+
+Form Should Contain Field With Value
+    [Arguments]    ${field}    ${expected}
+    ${fieldXpath}=    Get Complete Xpath For Form Field    ${field}
+    Wait Until	   Page Should Contain Element    ${fieldXpath}
+    ${actual}=    Get Value    ${fieldXpath}
+    Should Be Equal As Strings    ${actual}    ${expected}
+
+Get Complete Xpath For Form Field
+    [Arguments]    ${field}
+    ${fieldXpath}=    Set Variable    //td[@title='0: ${field}']//input
+    [Return]    ${fieldXpath}
+
+Form Should Contain Radio Group With Value Selected
+    [Arguments]    ${field}    ${groupName}    ${value}
+    Wait Until	   Page Should Contain Element    //td[@title='0: ${field}']//input[@type='radio'][@name='${groupName}']
+    Radio Button Should Be Set To    ${groupName}    ${value}
+
+Form Should Contain List With Value Selected
+    [Arguments]    ${listField}    ${expectedValue}
+    ${fieldXpath}=    Set Variable    //td[@title='0: ${listField}']//select
+    Wait Until	   Page Should Contain Element    ${fieldXpath}
+    ${actualFieldValue}=    Get Selected List Label    ${fieldXpath}
+    Should Be Equal As Strings    ${actualFieldValue}    ${expectedValue}
+
+Form Should Contain List Within Loop With Label Selected
+    [Arguments]    ${listField}    ${loopIndex}    ${expectedValue}
+    ${fieldXpath}=    Set Variable    //td[@title='${loopIndex}: ${listField}']//select
+    Wait Until	   Page Should Contain Element    ${fieldXpath}
+    ${actualFieldValue}=    Get Selected List Label    ${fieldXpath}
+    Should Be Equal As Strings    ${actualFieldValue}    ${expectedValue}
+
+Form Should Contain Field With Value Within Loop
+    [Arguments]    ${field}    ${loopIndex}    ${expectedValue}
+    ${fieldXpath}=    Set Variable    //td[@title='${loopIndex}: ${field}']//input
+    Wait Until	   Page Should Contain Element    ${fieldXpath}
+    ${actualFieldValue}=    Get Value    ${fieldXpath}
+    Should Be Equal As Strings    ${actualFieldValue}    ${expectedValue}
+
+Form Should Contain Checkbox Within Loop That Is Checked
+    [Arguments]    ${field}    ${loopIndex}
+    ${fieldXpath}=    Set Variable    //td[@title='${loopIndex}: ${field}']//input
+    Wait Until	   Page Should Contain Element    ${fieldXpath}
+    Checkbox Should Be Selected    ${fieldXpath}
+
+Modify List Value Within Loop
+    [Arguments]    ${listField}    ${loopIndex}    ${newValue}
+    ${fieldXpath}=    Set Variable    //td[@title='${loopIndex}: ${listField}']//select
+    Wait Until	   Page Should Contain Element    ${fieldXpath}
+    Select From List By Label    ${fieldXpath}    ${newValue}
+
+Modify Field Value Within Loop
+    [Arguments]    ${listField}    ${loopIndex}    ${newValue}
+    ${fieldXpath}=    Set Variable    //td[@title='${loopIndex}: ${listField}']//input
+    Wait Until	   Page Should Contain Element    ${fieldXpath}
+    Input Text    ${fieldXpath}    ${newValue}
+
+Connect To The StudyWorks Database
+    Connect to the database    ${SW_DB_SERVER}    ${STUDY_ID}    ${SW_DATABASE_USER}    ${SW_DATABASE_USER_PWD}
+
+Get Next Available Site Number
+    Connect To The StudyWorks Database
+    ${currentHighestSiteNumber}=    Get Highest Site Number From Database
+    ${currentHighestSiteNumber}=    Convert To Integer    ${currentHighestSiteNumber}
+    ${nextAvailable}=    Evaluate    ${currentHighestSiteNumber}+1
+    ${nextAvailable}=    Convert To String    ${nextAvailable}
+    Disconnect From Database
+    [Return]    ${nextAvailable.zfill(4)}
+
+Get Number of Most Recently Submitted Form
+    [Arguments]    ${formName}
+    Connect To The StudyWorks Database
+    ${lastForm}=    Get Total Number of Forms In Database    ${formName}
+    Disconnect From Database
+    [Return]    ${lastForm}
+
+Create A New Site
+    [Arguments]    ${siteNumber}
+    Select From List    ${PARENT_SELECT}    ${CRO}
+    Wait Until	   Page Should Contain Element    ${DOMAIN_TYPE_SELECT}
+    Select From List    ${DOMAIN_TYPE_SELECT}    ${SITE}
+    Input Text    ${SITE_CODE_INPUT}    ${siteNumber}
+    Input Text    ${PI_FIRST_NAME_INPUT}    ${PI_FIRST_NAME}
+    Input Text    ${PI_LAST_NAME_INPUT}    ${PI_LAST_NAME}
+    Input Text    ${ORG_NAME_INPUT}    ${ORG_NAME}
+    Input Text    ${SHIPPING_ADDRESS_INPUT}    ${SHIPPING_ADDRESS}
+    Input Text    ${CITY_INPUT}    ${CITY}
+    Select From List    ${COUNTRY_SELECT}    ${COUNTRY}
+    Input Text    ${POSTAL_CODE_INPUT}    ${POSTAL_CODE}
+    Select From List    ${STATE_SELECT}    ${STATE}
+    Input Text    ${SHIPPING_PHONE_INPUT}    ${SHIPPING_PHONE}
+    Input Text    ${SHIPPING_FAX_INPUT}    ${SHIPPING_FAX}
+    Click Element    ${EDIT_ADD_SITE_BUTTON}
+    Wait Until    Element Text Should Be    ${SITE_CODE_INPUT}    ${EMPTY}
+	Wait Until		Site Is Added To The List On Right Hand Column    ${siteNumber}
+
+Site Is Added To The List On Right Hand Column
+	[Documentation]		This keyword validates whether the site is added correctly or not.
+    [Arguments]    ${siteNumber}
+    Wait Until	   Page Should Contain Element    ${SITE_SEARCH_INPUT}
+    Input Text    ${SITE_SEARCH_INPUT}    ${siteNumber}
+    Wait Until	Page Should Contain Element    ${siteNumber}${SITE_RADIO_BUTTON}
+
+Create And Submit A System Variables Form
+    Select From List    ${ACTIONS_SELECT}    ${COMPLETE_NEW_FORM}
+    Wait Until	   Page Should Contain Element    ${PICK_FORM_KRSE_SELECT}
+    Select From List    ${PICK_FORM_KRSE_SELECT}    ${SYSTEM_VARIABLES}
+    Sleep    3 ${SEC}    #Needed in order to click on the open button
+    Click Element    ${MODAL_DIALOG_OPEN_BUTTON}
+    Wait Until	   Page Should Contain Element    //h3[@id='formName'][text()='${SYSTEM_VARIABLES}']
+    Sleep    3 ${SEC}    #Needed to be able to click on the submit button
+    Submit New Form
+    Wait Until Page Contains    ${SUBJECT_INFORMATION_TEXT}
+
+Get Current Date In StudyWorks Format
+    ${currentDate}=    Get Current Date    result_format=${SW_DATE_FORMAT}
+    [Return]    ${currentDate}
+
+Get Current DateTime In StudyWorks Format
+    ${currentDate}=    Get Current Date	UTC	-4 hours	result_format=${SW_DATETIME_FORMAT}
+	[Return]    ${currentDate}
+
+Element Should Contain Text
+    [Arguments]    ${identifier}    ${expectedText}
+    ${text}=    Get Value    ${identifier}
+    Should Be Equal As Strings    ${text}    ${expectedText}
+
+Go Back And Open Add User Form By Index
+    [Arguments]    ${index}
+    Click Go Back Button
+    Open Add User Form By Index    ${index}
+
+Click Go Back Button
+    Wait Until    Click Element    ${GO_BACK_BUTTON}
+    Wait Until    Page Should Contain Element    ${FILTER_FORM_SELECT}
+
+Login To SSA And Open Add User Form
+    Login To SSA And Navigate To MLPAdmin Subject Information Page
+    Select Most Recent Add User Form
+
+Login To SSA And Open Most Recent Deactivate User Form
+    Login To SSA And Navigate To MLPAdmin Subject Information Page
+    Select Most Recent Deactivate User Form
+
+Login To SSA And Navigate To MLPAdmin Subject Information Page
+    Login To SSA And Navigate To Subject Information Page    ${MLPADMIN}
+
+Login To SSA And Navigate To Study
+    Open Browser And Login To SSA    ${PHT_PROJECT_ADMINISTRATOR}    ${SQE_PASSWORD}
+    Search For And Navigate To Study    ${STUDY_ID}
+
+Login To SSA And Navigate To Subject Information Page
+    [Arguments]    ${subjectId}
+    Login To SSA And Navigate To Study
+    Navigate To View Data
+    Search For And Navigate To Subject    ${subjectId}
+
+Create Site Number In SSA And Register Device To That Site
+    Login To SSA And Create A New Site
+    Register Device    ${DEPOT_MODE_OFF}    ${STAGING_TYPE}    ${SITE_NUMBER}
+    Setup Device    ${USER_FIRST_NAME}    ${USER_LAST_NAME}    ${USER_ID}
+    Wait For    ${LOGIN_GRID_SITES}
+
+Add Subject in Studyworks
+    [Arguments]    ${subjectId}    ${subjectInitials}    ${language}
+    Open Browser And Login To SSA    ${PHT_STUDY_SUPPORT}    ${PHT_STUDY_SUPPORT_PWD}
+    Search For And Navigate To Study    ${STUDY_ID}
+    Navigate To View Data
+    Click Element    ${ADD_NEW_SUBJ_BUTTON}
+    Wait Until	Select From List By Label    ${SITENUMBER_SELECT}    ${SITE_NUMBER}
+    Input Text    ${SUBJECTID_INPUT}    ${subjectId}
+    Input Text    ${SUBJECTINITIALS_INPUT}    ${subjectInitials}
+    Select From List By Label    ${ADD_LANGUAGE_SELECT}    ${language}
+    ${sp_dateTime}=    Get Current DateTime In StudyWorks Format
+    Input Text    ${SP_DATETIME_INPUT}    ${sp_dateTime}
+    ${date}=    Get Current Date In StudyWorks Format
+    Input Text    ${REPORT_DATE_INPUT}    ${date}
+    ${dateTime}=    Get Current DateTime In StudyWorks Format
+    Input Text    ${REPORT_DATETIME_INPUT}    ${dateTime}
+    Select From List By Label    ${TIMEZONE_SELECT}    America/New_York
+    Select From List By Label    ${PHASE_AT_ENTRY_SELECT}    ${VISIT_SCREENING}
+    ${phaseStartTime}=    Get Current DateTime In StudyWorks Format
+    Input Text    ${PHASE_START_DATETIME_INPUT}    ${phaseStartTime}
+    Wait Until	Submit New Form
+	Close Browser
+
+Submit New Form
+    Click Element    ${SUBMIT_FORM_BUTTON}
+    Wait Until	   Page Should Contain Element    ${SUBMIT_PASSWORD_INPUT}
+    Input Password    ${SUBMIT_PASSWORD_INPUT}    ${PHT_PROJECT_ADMINISTRATOR_PWD}
+    Sleep    3 ${SEC}    #Needed to be able to click on the submit button
+    Wait Until    Click Element    ${MODAL_DIALOG_SUBMIT_FORM_BUTTON}
+    Wait Until Keyword Succeeds    ${TIMEOUT}    ${RETRY_INTERVAL}    Confirm Action
+
+Edit Language for Subject Added on StudyWorks
+    [Arguments]    ${subjectId}    ${language}
+    Open Browser And Login To SSA    ${PHT_PROJECT_ADMINISTRATOR}    ${SQE_PASSWORD}
+    Search For And Navigate To Study    ${STUDY_ID}
+    Open Assignment Form And Edit Language For Subject    ${subjectId}    ${language}
+    Close Browser
+
+Open Assignment Form And Edit Language For Subject
+    [Arguments]    ${subjectId}    ${language}
+    Navigate To View Data
+    Search For And Navigate To Subject    ${subjectId}
+    View Form    ${ASSIGNMENT}
+    Unlock Current Form
+    Edit Current Form
+    Sleep    3 ${SEC}
+    Select From List By Label    ${ADD_LANGUAGE_SELECT}    ${language}
+    Confirm Edit of Field
+    Submit Changes
+
+Open New Form
+    [Arguments]    ${formName}
+    Select From List    ${ACTIONS_SELECT}    ${COMPLETE_NEW_FORM}
+    Wait Until	   Page Should Contain Element    ${PICK_FORM_KRSE_SELECT}
+    Select From List    ${PICK_FORM_KRSU_SELECT}    ${formName}
+    Sleep    3 ${SEC}    #Needed in order to click on the open button
+    Click Element    ${MODAL_DIALOG_OPEN_BUTTON}
+    Wait Until	   Page Should Contain Element    //h3[@id='formName'][text()='${formName}']
+
+Complete And Submit New Visit Start Form
+    [Arguments]    ${visitName}=${VISIT_SCREENING}
+    Open New Form    ${VISIT_START}
+    Complete Report Date Field
+    #Report Start Date And Time
+    Complete Report Start Date And Time Field
+    #Event ID
+    Modify List Value Within Loop    ${VISIT_START_EVENT_ID}    ${0}    ${visitName}
+    #Event Start Date
+    ${eventDateTime}=    Get Current DateTime In StudyWorks Format
+    Modify Field Value Within Loop    ${VISIT_START_EVENT_DATE}    ${0}    ${eventDateTime}
+    Click Element    ${CALENDAR_WIDGET_DONE_BUTTON}
+    #Time Zone
+    Select From List By Label    ${TIMEZONE_SELECT}    America/New_York
+    #Phase @ Submission
+    Select From List By Label    ${PHASE_AT_ENTRY_SELECT}    ${VISIT_SCREENING}
+    #Phase Start Time
+    ${phaseStartTime}=    Get Current DateTime In StudyWorks Format
+    Input Text    ${PHASE_START_DATETIME_INPUT}    ${phaseStartTime}
+    Submit New Form
+
+Open Audit Trail Window
+    Wait Until	   Page Should Contain Element    ${VIEW_AUDIT_TRAIL_BUTTON}
+    Click Element    ${VIEW_AUDIT_TRAIL_BUTTON}
+    Select Window With Handle    ${1}
+    Wait Until    Title Should Be    ${TITLE_AUDIT_TRAIL}
+    Maximize Browser Window
+
+Complete Report Date Field
+    ${date}=    Get Current Date In StudyWorks Format
+    Input Text    ${REPORT_DATE_INPUT}    ${date}
+    Wait Until    Click Element    ${CALENDAR_WIDGET_DONE_BUTTON}
+
+Complete Report Start Date And Time Field
+    Wait Until    Click Element    ${REPORT_DATETIME_INPUT}
+    Click Element    ${CALENDAR_WIDGET_NOW_BUTTON}
+    Click Element    ${CALENDAR_WIDGET_DONE_BUTTON}
+
+Click On Ok Button On Confirmation Dialog Box
+	[Documentation]	On Confirmation Dialog Box Clicks On Ok Button To Confirm The Action
+	Wait Until	Choose Ok On Next Confirmation
+	Confirm Action
+
+Click On Cancel Button On Confirmation Dialog Box
+	[Documentation]	On Confirmation Dialog Box Clicks On Cancel Button To Cancel The Action
+	Wait Until	Choose Cancel On Next Confirmation
+	Confirm Action
+
+Wait Until
+    [Arguments]    ${keyword}    @{arguments}
+    Wait Until Keyword Succeeds    ${WAIT_UNTIL_TIMEOUT}    ${RETRY_INTERVAL}    ${keyword}    @{arguments}
+
+Enter Text Into Field
+	[Documentation]		This Keyword enters the text in a text field.
+    [Arguments]    ${fieldLocator}    ${text}
+    Wait Until    Element Should Be Visible    ${fieldLocator}
+    Input Text    ${fieldLocator}    ${text}
+
+Navigate To My Studies
+	[Documentation]		User clicks on My Studies button and will navigate to My studies.
+	Click Element		${MY_STUDIES_BUTTON}
+	My Studies Page Displays
+
+My Studies Page Displays
+	[Documentation]		This Keyword confirms that My studies page displayed correctly.
+	Wait Until    Page Should Contain    ${MY_STUDIES_TEXT}

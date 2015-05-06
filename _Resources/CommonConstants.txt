@@ -1,0 +1,111 @@
+*** Variables ***
+${REMOTE_PORT}    8270
+${SELENIUM_SCREENSHOT_FOLDER}    C:${/}SeleniumScreenshots
+${BROWSER}		Chrome
+
+# General Login
+${ADMINISTRATOR}    Administrator
+${SQE_PASSWORD}    $QE_C0rp
+
+# StudyWorks Web Server
+${SERVER_NAME}    stage411
+${SW_URL}         https://${SERVER_NAME}.phtstudy.com/ssa/
+${SW_ADMIN_LOGIN_NAME}    ssadevcombo3
+${PHT_PROJECT_ADMINISTRATOR}=        Fberthold
+${PHT_PROJECT_ADMINISTRATOR_PWD}=    111111Sp
+${PHT_STUDY_SUPPORT}=        RABBOTT
+${PHT_STUDY_SUPPORT_PWD}=    111111Sp
+${PHT_STUDY_SUPPORT_IALAM}=        IALAM
+${PHT_STUDY_SUPPORT_IALAM_PWD}=		${SQE_PASSWORD}
+${SPONSOR_USER_LOGIN}=        lp59sponsor
+${SPONSOR_USER_LOGIN_PWD}=		${SQE_PASSWORD}
+${SITE_USER_LOGIN}=        lp59site
+${SITE_USER_LOGIN_PWD}=		${SQE_PASSWORD}
+
+# StudyWorks DB Server
+${SW_DB_SERVER}    devcombo13.phtstudy.com
+${SW_DATABASE_USER}    sa
+${SW_DATABASE_USER_PWD}    ${SQE_PASSWORD}
+
+# Study Name
+${STUDY_ID}       ${Study Name}
+
+# StudyWorks Default Site Info
+${CRO}            CRO
+${SITE}           Site
+${PI_FIRST_NAME}    First Name
+${PI_LAST_NAME}    Last Name
+${ORG_NAME}       PHT Corp
+${SHIPPING_ADDRESS}    500 Rutherford Avenue
+${CITY}           Boston
+${COUNTRY}        United States
+${POSTAL_CODE}    02129
+${STATE}          Massachusetts
+${SHIPPING_PHONE}    5555555555
+${SHIPPING_FAX}    5555555555
+
+# StudyWorks Common Constants
+${MLPADMIN}       MLPAdmin
+${SW_DATE_FORMAT}    %d %b %Y
+${SW_DATETIME_FORMAT}    %d %b %Y ${SW_HR_MIN_FORMAT}:%S
+${SW_HR_MIN_FORMAT}    %H:%M
+# Time
+${RETRY_INTERVAL}    5 Seconds
+${TIMEOUT}        15 Seconds
+${WAIT_UNTIL_TIMEOUT}    50 Seconds
+${MIN}            min
+${SEC}            sec
+${TIMES}          Times
+${MAX_WAIT}       maxWait
+
+# Registration and Setup
+${DEFAULT_LANGUAGE}    English
+${DEVICE_TIME_ZONE}    22    # America/New York
+${DEFAULT_UNLOCK_CODE}    2206256433
+${DEFAULT_QUESTION}    1
+${DEFAULT_SECRET_ANSWER}    aaa
+${CHANGE_REG_TYPE_PASSWORD}    8183031070
+
+# Subject Info
+${BASE_SITE_CODE}	1234
+${SITE_NUMBER}    ${BASE_SITE_CODE}
+${BASE_SUBJECT_ID}    0100
+${BASE_SUBJECT_INITIALS}    ABC
+${FIRST_GRID_ENTRY}    1
+
+# Login
+${LOGIN_SCREEN_TITLE}    Log In
+${LOGIN_FAILED}    Log In Failed!
+
+# Diary Names
+${EQ5D}           EQ-5D
+${SF36}           SF36
+${NPS}            NPS
+${BPI}            BPI
+${EVENT_BINDING}    Event Binding
+${SCREEN_DEMO}    ScreenDemo
+${LOOPING_SIMPLE}    Looping Simple
+${LOOPING_COMPLEX}    Looping Complex
+${TRAINING}       Training
+
+# Languages
+${AFRIKAANS}      Afrikaans
+${CHINESE_CHINA}    Chinese (China)
+${CROATIAN}       Croatian
+${ESTONIAN}       Estonian
+${FINNISH}        Finnish
+${GERMAN}         German
+${HEBREW}         Hebrew
+${JAPANESE}       Japanese
+${SPANISH_US}     Spanish (US)
+${TAMIL}          Tamil
+${HINDI}          Hindi
+${TELUGU}         Telugu
+${KANNADA}        Kannada
+${ARABIC}         Arabic
+${GREEK}          Greek
+${ENGLISH_US}     English (US)
+
+# Some Test Constants
+${YES}            Yes
+

@@ -1,0 +1,66 @@
+*** Settings ***
+Resource          ViewDataSelectors.txt
+Library           ExtendedKeywords/Extended_Selenium_Keywords.py
+Library           ExtendedKeywords/String_Casing.py
+Library           Selenium2Library
+
+*** Keywords ***
+Sort By SubjectID
+    [Documentation]    Sort subjects in new View Data
+    Click Element    ${SUBJECT_ID_HDR}
+    sleep  5s
+
+Sort By SiteID
+    [Documentation]    Sort sites in new View Data
+    Click Element    ${SITE_ID_HDR}
+    sleep  5s
+
+Sort By Subject Reference
+    [Documentation]    Sort subject references in new View Data
+    Click Element    ${SUBJ_REF__HDR}
+    sleep  5s
+
+Sort By Subject Enrollment Date
+    [Documentation]    Sort enrollment dates in new View Data
+    Click Element    ${ENROLL_DATE_HDR}
+    sleep  5s
+
+Sort By Phase
+    [Documentation]    Sort phases in new View Data
+    Click Element    ${PHASE_ID_HDR}
+    sleep  5s
+
+Sort By Deleted
+    [Documentation]    Sort subjects in new View Data
+    Click Element    ${DELETED_ID_HDR}
+    sleep  5s
+
+Get SubjectIDs
+    [Documentation]  Gets the subject IDs from the table in View Data
+    ${theList}=    get elements by xpath    ${SUBJECT_ID_VALUES}
+    [Return]    ${theList}
+
+Get SiteIDs
+    [Documentation]  Gets the Site IDs from the table in View Data
+    ${theList}=    get elements by xpath    ${SITE_ID_VALUES}
+    [Return]    ${theList}
+
+Get Subject References
+    [Documentation]  Gets the Subject References from the table in View Data
+    ${theList}=    get elements by xpath    ${SUBJ_REF_VALUES}
+    [Return]    ${theList}
+
+Get Subject Enrollment Dates
+    [Documentation]  Gets the Enrollment Dates from the table in View Data
+    ${theList}=    get elements by xpath    ${ENROLL_DATE_VALUES}
+    [Return]    ${theList}
+
+Get Phases List
+    [Documentation]  Gets the Phases from the table in View Data
+    ${theList}=    get elements by xpath    ${PHASE_VALUES}
+    [Return]    ${theList}
+
+Get Delted State List
+    [Documentation]  Gets the Deleted States from the table in View Data
+    ${theList}=    get elements by xpath    ${DELETED_VALUES}
+    [Return]    ${theList}

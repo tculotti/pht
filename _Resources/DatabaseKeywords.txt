@@ -1,0 +1,40 @@
+*** Settings ***
+Library           DatabaseLibrary
+Library           Selenium2Library
+
+*** Keywords ***
+Connect to the database
+	[Arguments]	${server}	${database}	${login}	${password}
+	Connect To Database Using Custom Params	pyodbc	"DRIVER={SQL Server};SERVER=${server};DATABASE=${database};UID=${login};PWD=${password}"
+
+Get Highest Site Number From Database
+	${result}=	Query	SELECT TOP 1 sitecode FROM lookup_domain WHERE issite='TRUE' AND sitecode !='${MLPADMIN}' ORDER BY sitecode DESC
+	[Return]	${result[0][0]}
+
+Get Total Number of Rows
+	[Arguments]	${query}
+	${data}=	Query	${query}
+	${count}=	Get Length	${data}
+	[Return]	${count}
+
+Get Total Number of Forms In Database
+	[Arguments]	${formName}
+	${formName}=	Replace String	${formName}	${SPACE}	${EMPTY}
+	${query}=	Set Variable	SELECT * FROM ig_${formName}
+	${rowCount}=	Get Total Number of Rows	${query}
+	[Return]	${rowCount}
+
+Get Subject From The Database
+	[Arguments]	${subjectId}
+	${query}=	Set Variable	SELECT PT.Patientid, PT.Initials, PT.Krpt, IsNull(LPA.setup_code, -1) as setup_code FROM lookup_pt PT Left Join logpad_app_setup_code LPA With (nolock) on LPA.krpt = PT.KRPT WHERE Patientid='${subjectId}'
+	${data}=	Query	${query}
+	[Return]	${data}
+
+Insert A Setup Code For A Subject Into The Database
+	[Arguments]	${subjectId}
+	${setupCode}=	Generate Random String	8	123456789
+	${subject}=	Get Subject From The Database	${subjectId}
+	${Krpt}=	Set Variable	${subject[0][2]}
+	${sql}=	Set Variable	INSERT INTO logpad_app_setup_code (krpt, setup_code) values ('${Krpt}', '${setupCode}')
+	Execute Sql String	${sql}
+	[Return]	${setupCode}

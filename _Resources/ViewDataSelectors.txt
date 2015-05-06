@@ -1,0 +1,18 @@
+*** Variables ***
+${SUBJECT_ID_HDR}   //*[@id='th_subjectID']/div
+${SITE_ID_HDR}   //*[@id='th_site']/div
+${SUBJ_REF__HDR}   //*[@id='th_subject_ref']/div
+${ENROLL_DATE_HDR}   //*[@id='th_enroll_date']/div
+${PHASE_ID_HDR}   //*[@id='th_phase']/div
+${DELETED_ID_HDR}   //*[@id='th_deleted']/div
+
+
+${SUBJECT_ID_VALUES}    //table[@id='pt_table']/tbody/tr/td/a
+${SITE_ID_VALUES}    //table[@id='pt_table']/tbody/tr/td[2]
+${SUBJ_REF_VALUES}    //table[@id='pt_table']/tbody/tr/td[3]
+${ENROLL_DATE_VALUES}    //table[@id='pt_table']/tbody/tr/td[4]
+${PHASE_VALUES}    //table[@id='pt_table']/tbody/tr/td[5]
+${DELETED_VALUES}    //table[@id='pt_table']/tbody/tr/td[5]
+
+#${ADD_SUBJECT}    //*[@id="pt_table_wrapper"]/div[2]/button
+${ADD_SUBJECT}    //*[@id="add_subject_form"]/button

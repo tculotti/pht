@@ -1,0 +1,80 @@
+*** Settings ***
+Suite Setup       Open Browser And Navigate To SSA
+Suite Teardown    Close All Browsers
+Test Teardown	  Logout And Navigate To SSA Login
+Force Tags        ROLES
+Resource          ../../_Resources/StudyWorksKeywords.txt
+Resource          ../../_Resources/ViewDataKeywords.txt
+Library             ../../_Resources/ExtendedKeywords/Extended_Selenium_Keywords.py
+
+Library           Selenium2Library
+
+*** Variables ***
+${STUDY_NAME}	                             GSK_201682
+${SW_SPM_LOGIN_NAME}	                     sitepad63sponsor
+${SW_SITE_LOGIN_NAME}	                     sitepad63site
+${SITE_STUDY_COORDINATOR}                    Site Study Coordinator
+${SITE_STUDY_COORDINATOR_LOGIN_NAME}         Matt201682SSC
+${SITE_STUDY_COORDINATOR_LOGIN_PASS}         q~123456
+${SITE_PRINCIPAL_INVESTIGATOR}               Site Principal Investigator
+${SITE_PRINCIPAL_INVESTIGATOR_LOGIN_NAME}    Matt201682SPI
+${SITE_PRINCIPAL_INVESTIGATOR_LOGIN_PASS}    q~123456
+${SITE_SUB_INVESTIGATOR}                     Site Sub Investigator
+${SITE_SUB_INVESTIGATOR_LOGIN_NAME}          Matt201682SSI
+${SITE_SUB_INVESTIGATOR_LOGIN_PASS}          q~123456
+${SUBJECT_ID}                                101701
+
+
+*** Test Cases ***
+Site Coordicator Can Access Site Gateway
+    [Documentation]    This test case will verify the presence of the Site Gateway button for a Site Coodinator.
+    [Tags]    SG    SSC    TEST
+    Login To SSA    ${SITE_STUDY_COORDINATOR_LOGIN_NAME}    ${SITE_STUDY_COORDINATOR_LOGIN_PASS}
+    Search For And Navigate To Study    ${STUDY_NAME}
+    Navigate To View Data
+    Search For And Navigate To Subject    ${SUBJECT_ID}
+    Page Should Contain Button    ${GATEWAY_BUTTON}
+
+Site Principal Investigator Can Access Site Gateway
+    [Documentation]    This test case will verify the presence of the Site Gateway button for a Principal Investigator.
+    [Tags]    SG    SPI
+    Login To SSA    ${SITE_PRINCIPAL_INVESTIGATOR_LOGIN_NAME}    ${SITE_PRINCIPAL_INVESTIGATOR_LOGIN_PASS}
+    Search For And Navigate To Study    ${STUDY_NAME}
+    Navigate To View Data
+    Search For And Navigate To Subject    ${SUBJECT_ID}
+    Page Should Contain Button    ${GATEWAY_BUTTON}
+
+Site Sub Investigator Can Access Site Gateway
+    [Documentation]    This test case will verify the presence of the Site Gateway button for a Principal Investigator.
+    [Tags]    SG    SSI
+    Login To SSA    ${SITE_SUB_INVESTIGATOR_LOGIN_NAME}    ${SITE_SUB_INVESTIGATOR_LOGIN_PASS}
+    Search For And Navigate To Study    ${STUDY_NAME}
+    Navigate To View Data
+    Search For And Navigate To Subject    ${SUBJECT_ID}
+    Page Should Contain Button    ${GATEWAY_BUTTON}
+
+Site Coordicator Can Add Subjects
+    [Documentation]    This test case will verify the Ability to Add Sublects for a Site Coodinator.
+    [Tags]    ADDSUB    SSC
+    Login To SSA    ${SITE_STUDY_COORDINATOR_LOGIN_NAME}    ${SITE_STUDY_COORDINATOR_LOGIN_PASS}
+    Search For And Navigate To Study    ${STUDY_NAME}
+    Navigate To View Data
+    Element Should Be Enabled    ${ADD_SUBJECT}
+
+Site Principal Investigator Can Add Subjects
+    [Documentation]    This test case will verify the Ability to Add Sublects for a Principal Investigator.
+    [Tags]    ADDSUB    SPI
+    Login To SSA    ${SITE_PRINCIPAL_INVESTIGATOR_LOGIN_NAME}    ${SITE_PRINCIPAL_INVESTIGATOR_LOGIN_PASS}
+    Search For And Navigate To Study    ${STUDY_NAME}
+    Navigate To View Data
+    Element Should Be Enabled    ${ADD_SUBJECT}
+
+Site Sub Investigator Can Add Subjects
+    [Documentation]    This test case will verify the Ability to Add Sublects for a Sub Investigator
+    [Tags]    ADDSUB    SSI
+    Login To SSA    ${SITE_SUB_INVESTIGATOR_LOGIN_NAME}    ${SITE_SUB_INVESTIGATOR_LOGIN_PASS}
+    Search For And Navigate To Study    ${STUDY_NAME}
+    Navigate To View Data
+    Element Should Be Enabled    ${ADD_SUBJECT}
+
+
